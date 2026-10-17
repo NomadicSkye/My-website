@@ -1,0 +1,1069 @@
+    /* 1. GLOBAL SETTINGS */
+    :root {
+      --background: #0b0714;
+      --surface: #151025;
+      --purple: #a78bfa;
+      --cyan: #67e8f9;
+      --text: #f5f3ff;
+      --muted: #b8b1cc;
+      --border: #302347;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 90px;
+    }
+
+    body {
+      background: var(--background);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1100px, 90%);
+      margin: 0 auto;
+    }
+.level-panel {
+  max-width: 360px;
+  margin-top: 24px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.level-panel p {
+  margin-bottom: 8px;
+  color: var(--cyan);
+  font-size: 0.9rem;
+}
+
+.xp-track {
+  height: 10px;
+  overflow: hidden;
+  background: #302347;
+  border-radius: 20px;
+}
+
+#xpBar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  border-radius: 20px;
+  transition: width 0.3s ease;
+}
+
+    /* 2. NAVIGATION BAR */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(11, 7, 20, 0.92);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+    }
+
+    nav {
+      min-height: 72px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .logo {
+      color: var(--purple);
+      font-size: 1.4rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    /* 3. HERO / INTRODUCTION */
+    .hero {
+      min-height: 78vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding: 100px 0;
+    }
+
+    .hero::before {
+      
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  right: -100px;
+  top: 80px;
+  background: var(--purple);
+  opacity: 0.16;
+  filter: blur(100px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Cyan glow */
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 350px;
+  right: 100px;
+  bottom: 175px;
+  background: var(--cyan);
+  opacity: 0.10;
+  filter: blur(110px);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+/* Subtle cyberpunk grid */
+.hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.hero {
+  isolation: isolate;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image:
+    linear-gradient(rgba(167, 139, 250, 0.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.25) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: linear-gradient(to bottom, black, transparent 90%);
+}
+
+
+    .eyebrow {
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      line-height: 1.05;
+      margin: 18px 0;
+      letter-spacing: -3px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero p {
+      max-width: 600px;
+      color: var(--muted);
+      font-size: 1.15rem;
+      margin-bottom: 30px;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .button {
+      display: inline-block;
+      padding: 12px 20px;
+      border: 1px solid var(--purple);
+      border-radius: 8px;
+      font-weight: bold;
+      transition: transform 0.2s, background 0.2s;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .button:hover {
+      transform: translateY(-3px);
+    }
+
+    .button-primary {
+      background: var(--purple);
+      color: #120b20;
+    }
+
+    .button-secondary {
+      background: transparent;
+      color: var(--text);
+    }
+
+    .button-secondary:hover {
+      background: var(--surface);
+    }
+
+    /* 4. GENERAL SECTIONS */
+    section:not(.hero) {
+      padding: 85px 0;
+    }
+
+    .section-label {
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin: 8px 0 18px;
+    }
+
+    .section-intro {
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 30px;
+    }
+
+    /* 5. ABOUT */
+    .about-box {
+      padding: 30px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: linear-gradient(135deg, var(--surface), #100b1e);
+    }
+
+    .about-box p {
+      color: var(--muted);
+      margin-top: 12px;
+    }
+
+    /* 6. PROJECT CARDS */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .project-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 24px;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: var(--purple);
+    }
+
+    .project-icon {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .project-card h3 {
+      margin-bottom: 8px;
+    }
+
+    .project-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .project-tag {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #29203d;
+      color: var(--cyan);
+      font-size: 0.8rem;
+    }
+
+    /* 7. CONTACT */
+    .contact-box {
+      text-align: center;
+      padding: 45px 25px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: radial-gradient(ellipse at top, #26183e, var(--surface));
+    }
+
+    .contact-box p {
+      color: var(--muted);
+      margin: 0 auto 25px;
+      max-width: 550px;
+    }
+
+    /* 8. FOOTER */
+    footer {
+      padding: 25px 0;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    
+/* 9. MOBILE LAYOUT */
+@media (max-width: 700px) {
+  html {
+    scroll-padding-top: 130px;
+  }
+
+  .container {
+    width: 92%;
+  }
+
+  nav {
+    padding: 14px 0;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .nav-links {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    font-size: 0.9rem;
+  }
+
+  .hero {
+    min-height: auto;
+    padding: 72px 0;
+  }
+
+  .eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    font-size: clamp(2.35rem, 9vw, 4rem);
+    letter-spacing: -1.5px;
+    overflow-wrap: break-word;
+  }
+
+  .hero p {
+    font-size: 1rem;
+  }
+
+  .buttons {
+    gap: 10px;
+  }
+
+  .button {
+    padding: 11px 15px;
+    text-align: center;
+  }
+
+  .level-panel {
+    width: 100%;
+    max-width: 360px;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  section:not(.hero) {
+    padding: 60px 0;
+  }
+
+  .about-box {
+    padding: 22px;
+  }
+
+  .contact-box {
+    padding: 35px 18px;
+  }
+}
+
+/* EXTRA-SMALL PHONES */
+@media (max-width: 400px) {
+  h1 {
+    font-size: clamp(2rem, 10vw, 2.6rem);
+    letter-spacing: -1px;
+  }
+
+  .nav-links {
+    gap: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .buttons .button {
+    width: 100%;
+  }
+
+  .section-label {
+    letter-spacing: 2px;
+  }
+}
+
+
+/* 10. CYBERPUNK VISUAL POLISH */
+
+/* Subtle glow around the main heading */
+h1 {
+  text-shadow: 0 0 30px rgba(167, 139, 250, 0.12);
+}
+
+/* Neon glow when hovering over buttons */
+.button-primary {
+  box-shadow: 0 0 0 rgba(167, 139, 250, 0);
+}
+
+.button-primary:hover {
+  box-shadow:
+    0 0 12px rgba(167, 139, 250, 0.35),
+    0 0 28px rgba(103, 232, 249, 0.12);
+}
+
+/* Smoother, more atmospheric project cards */
+.project-card {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.project-card:hover {
+  box-shadow: 0 8px 30px rgba(167, 139, 250, 0.10);
+}
+
+/* Give the project icons a little more personality */
+.project-icon {
+  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.18));
+}
+
+/* Make the XP panel feel more like a game interface */
+.level-panel {
+  box-shadow: 0 0 24px rgba(167, 139, 250, 0.06);
+}
+
+/* Respect users who prefer less animation */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+
+/* 11. CYBERPUNK PROJECT CARDS */
+
+.project-card {
+  background: linear-gradient(
+    145deg,
+    rgba(167, 139, 250, 0.07),
+    rgba(103, 232, 249, 0.025)
+  );
+  border: 1px solid rgba(167, 139, 250, 0.2);
+  border-radius: 16px;
+  padding: 28px;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(103, 232, 249, 0.65);
+  box-shadow:
+    0 0 18px rgba(167, 139, 250, 0.12),
+    0 0 28px rgba(103, 232, 249, 0.07);
+  background: linear-gradient(
+    145deg,
+    rgba(167, 139, 250, 0.11),
+    rgba(103, 232, 249, 0.05)
+  );
+}
+
+.project-card h3 {
+  transition: color 0.25s ease;
+}
+
+.project-card:hover h3 {
+  color: var(--cyan);
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.project-tag {
+  display: inline-block;
+  padding: 6px 10px;
+  border: 1px solid rgba(103, 232, 249, 0.25);
+  border-radius: 6px;
+  background: rgba(103, 232, 249, 0.05);
+  color: var(--cyan);
+  font-size: 0.78rem;
+  letter-spacing: 0.3px;
+}
+
+/* PROJECT CLASSIFICATION LABELS */
+
+.project-type {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--cyan);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+.project-card:hover .project-type {
+  opacity: 1;
+  text-shadow: 0 0 10px rgba(103, 232, 249, 0.35);
+}
+
+/* PROJECT CARD ACCENT LINE */
+
+.project-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--purple),
+    var(--cyan),
+    transparent
+  );
+  opacity: 0.35;
+  transition: opacity 0.25s ease;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* PROJECT STATUS INDICATORS */
+
+.project-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: var(--cyan);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 8px rgba(103, 232, 249, 0.6);
+}
+
+.status-pending {
+  background: var(--purple);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.6);
+}
+
+
+/* CHARACTER DATA — MINIMAL HUD STYLE */
+
+.character-stats {
+  margin-top: 28px;
+  padding: 12px 0;
+  border: none;
+  background: transparent;
+}
+
+.stats-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 12px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.22);
+}
+
+.stats-level {
+  color: var(--purple);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid rgba(167, 139, 250, 0.12);
+}
+
+.stat-name {
+  color: var(--muted);
+}
+
+.stat-value {
+  color: var(--cyan);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-align: right;
+}
+
+@media (max-width: 400px) {
+  .stat-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .stat-value {
+    text-align: left;
+  }
+}
+
+
+/* 12. RPG QUEST LOG */
+
+.quest-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.quest-card {
+  position: relative;
+  overflow: hidden;
+  padding: 24px;
+  border: 1px solid rgba(167, 139, 250, 0.22);
+  border-radius: 14px;
+  background: linear-gradient(
+    145deg,
+    rgba(167, 139, 250, 0.06),
+    rgba(103, 232, 249, 0.025)
+  );
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.quest-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(103, 232, 249, 0.6);
+  box-shadow: 0 0 22px rgba(103, 232, 249, 0.07);
+}
+
+.quest-header,
+.quest-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.quest-status,
+.quest-number,
+.quest-rank {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.quest-status {
+  color: var(--cyan);
+}
+
+.quest-progress {
+  color: var(--purple);
+}
+
+.quest-locked-label {
+  color: var(--muted);
+}
+
+.quest-number {
+  color: var(--muted);
+}
+
+.quest-card h3 {
+  margin: 24px 0 10px;
+  transition: color 0.25s ease;
+}
+
+.quest-card:hover h3 {
+  color: var(--cyan);
+}
+
+.quest-card p {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.quest-footer {
+  margin-top: 24px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(167, 139, 250, 0.15);
+}
+
+.quest-footer span {
+  font-size: 0.65rem;
+  letter-spacing: 0.7px;
+}
+
+.quest-footer span:first-child {
+  color: var(--muted);
+}
+
+.quest-rank {
+  color: var(--cyan);
+}
+
+.quest-locked {
+  opacity: 0.65;
+}
+
+.quest-locked:hover {
+  opacity: 0.9;
+}
+
+/* QUEST LOG MOBILE LAYOUT */
+
+@media (max-width: 700px) {
+  .quest-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* EXPANDABLE QUEST CARD */
+
+.quest-toggle {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.quest-title {
+  margin-top: 8px;
+  font-size: 1.17rem;
+  font-weight: 700;
+}
+
+.quest-summary {
+  color: var(--muted);
+  font-size: 0.92rem;
+}
+
+.quest-expand {
+  margin-top: 8px;
+  color: var(--cyan);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.quest-toggle:hover .quest-title {
+  color: var(--cyan);
+}
+
+.quest-toggle:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 5px;
+}
+
+.quest-details {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(167, 139, 250, 0.2);
+}
+
+.quest-detail-label {
+  color: var(--purple);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.quest-details ul {
+  padding-left: 20px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.quest-details li {
+  margin-bottom: 8px;
+}
+
+.quest-reward {
+  margin-top: 18px;
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+}
+
+
+/* ROTATING QUEST ARROWS */
+
+.quest-expand {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+  color: var(--cyan);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.quest-arrow {
+  display: inline-block;
+  color: var(--purple);
+  font-size: 1.2rem;
+  line-height: 1;
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+.quest-toggle[aria-expanded="true"] .quest-arrow {
+  transform: rotate(180deg);
+  color: var(--cyan);
+}
+
+.quest-toggle:hover .quest-arrow {
+  color: var(--cyan);
+}
+
+
+/* QUEST OBJECTIVE CHECKBOXES */
+
+.quest-objectives {
+  list-style: none;
+  padding: 0;
+  margin-top: 12px;
+}
+
+.quest-objectives li {
+  margin-bottom: 12px;
+}
+
+.quest-objectives label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.quest-checkbox {
+  appearance: none;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 5px;
+  border: 1px solid var(--purple);
+  border-radius: 4px;
+  background: rgba(167, 139, 250, 0.06);
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.quest-checkbox:checked {
+  border-color: var(--cyan);
+  background: var(--cyan);
+  box-shadow: 0 0 10px rgba(103, 232, 249, 0.25);
+}
+
+.quest-checkbox:checked::after {
+  content: "✓";
+  display: block;
+  color: var(--background);
+  font-size: 13px;
+  font-weight: bold;
+  line-height: 16px;
+  text-align: center;
+}
+
+.quest-checkbox:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+.quest-objectives label:has(.quest-checkbox:checked) {
+  color: var(--cyan);
+}
+
+.quest-objectives label:has(.quest-checkbox:checked) span {
+  text-decoration: line-through;
+  opacity: 0.75;
+}
+
+
+/* 13. CYBERPUNK LEVEL-UP EFFECTS */
+
+/* Floating level-up notification */
+.level-up-toast {
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  z-index: 9999;
+  width: min(360px, calc(100vw - 32px));
+  padding: 20px 22px;
+  border: 1px solid rgba(103, 232, 249, 0.7);
+  border-left: 3px solid var(--cyan);
+  border-radius: 12px;
+  background: rgba(13, 10, 27, 0.96);
+  box-shadow:
+    0 0 18px rgba(167, 139, 250, 0.25),
+    0 0 35px rgba(103, 232, 249, 0.12);
+  backdrop-filter: blur(14px);
+  animation: levelUpEnter 0.45s ease-out both;
+}
+
+.level-up-toast-title {
+  margin: 0 0 7px;
+  color: var(--cyan);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 2.5px;
+}
+
+.level-up-toast-message {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-shadow: 0 0 14px rgba(167, 139, 250, 0.4);
+}
+
+.level-up-toast-subtitle {
+  margin: 8px 0 0;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+/* Notification entrance and exit */
+@keyframes levelUpEnter {
+  0% {
+    opacity: 0;
+    transform: translateX(35px) scale(0.96);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(-4px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes levelUpExit {
+  to {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+}
+
+/* Brief glow around the existing XP panel */
+.level-panel.level-up-glow {
+  animation: levelUpGlow 0.9s ease-out;
+}
+
+@keyframes levelUpGlow {
+  0%, 100% {
+    box-shadow: 0 0 24px rgba(167, 139, 250, 0.06);
+  }
+  35% {
+    box-shadow:
+      0 0 22px rgba(167, 139, 250, 0.55),
+      0 0 42px rgba(103, 232, 249, 0.28);
+  }
+}
+
+/* Mobile positioning */
+@media (max-width: 500px) {
+  .level-up-toast {
+    top: 16px;
+    right: 16px;
+  }
+}

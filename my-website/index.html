@@ -1,0 +1,488 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Skye | Personal Portfolio</title>
+  <meta name="description" content="Explore Skylar's portfolio of digital projects, interactive experiments, and work in technology and development.">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+
+<!-- FLOATING XP BAR -->
+<div class="floating-xp">
+  <div class="floating-xp-info">
+    <span id="floating-xp-level">LEVEL 1</span>
+    <span id="floating-xp-text">0 / 100 XP</span>
+  </div>
+
+  <div class="floating-xp-track">
+    <div
+      class="floating-xp-fill"
+      id="floating-xp-fill"
+    ></div>
+  </div>
+</div>
+
+
+  <!-- NAVIGATION -->
+  <header>
+    <nav class="container">
+      <a class="logo" href="#home">SKYE<span class="gradient-text">.</span></a>
+
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="experiments.html">Experiments</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="home">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="container">
+        <span class="eyebrow">Skylar // Independent Developer
+        </span>
+
+        <h1>
+          HEY, I'M SKYLAR.<br>
+          <span class="gradient-text">RIDING THE WAVE TO NEW HEIGHTS</span>
+        </h1>
+
+        <p>
+  Exploring technology, developing digital experiences,
+  and turning ambitious ideas into reality.
+          </p>
+
+        <div class="buttons">
+          <a class="button button-primary" href="#projects">
+            Explore Projects →
+          </a>
+
+          <button class="button button-secondary" id="levelUp">
+            ⚡ Level Up
+          </button>
+        </div>
+
+        <div class="level-panel">
+            <p id="levelMessage" aria-live="polite">
+                 LEVEL 1 // READY TO BEGIN
+              </p>
+
+            <p id="xpText">XP: 0 / 100</p>
+
+  <div class="xp-track">
+    <div id="xpBar"></div>
+
+<!-- XP PROGRESS BAR -->
+<div class="xp-progress-container">
+  <div class="xp-progress-labels">
+    <span>XP PROGRESS</span>
+    <span id="xp-progress-text">0 / 100 XP</span>
+  </div>
+
+  <div
+    class="xp-progress-track"
+    role="progressbar"
+    aria-label="XP progress to next level"
+    aria-valuemin="0"
+    aria-valuemax="100"
+    aria-valuenow="0"
+    id="xp-progress-bar"
+  >
+    <div class="xp-progress-fill" id="xp-progress-fill"></div>
+  </div>
+</div>
+
+  </div>
+</div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="container">
+        <span class="section-label">01 // Character Profile</span>
+        <h2>About Me</h2>
+
+        <div class="about-box">
+  <h3>Driven by ambition. Defined by what comes next.</h3>
+
+  <p>
+    I'm an aspiring independent game developer with a
+    broader interest in technology and digital creation.
+    I'm developing my skills through hands-on projects,
+    experimentation, and continuous learning.
+  </p>
+
+  <p>
+    My long-term goal is to create experiences that
+    resonate with people on a large scale. I believe
+    meaningful progress comes from pushing boundaries,
+    thinking differently, and making the most of every
+    opportunity to improve.
+  </p>
+</div>
+
+<div class="character-stats">
+  <div class="stats-heading">
+    <span class="project-type">CHARACTER DATA</span>
+    <span class="stats-level">LVL. 01</span>
+  </div>
+
+  <div class="stat-row">
+    <span class="stat-name">Development</span>
+    <span class="stat-value">LEARNING</span>
+  </div>
+
+  <div class="stat-row">
+    <span class="stat-name">Problem Solving</span>
+    <span class="stat-value">IN PROGRESS</span>
+  </div>
+
+  <div class="stat-row">
+    <span class="stat-name">Creativity</span>
+    <span class="stat-value">ACTIVE</span>
+  </div>
+
+  <div class="stat-row">
+    <span class="stat-name">Current Quest</span>
+    <span class="stat-value">BUILD &amp; EXPLORE</span>
+  </div>
+</div>
+
+      </div>
+    </section>
+
+<!-- QUEST LOG -->
+<section id="quests">
+  <div class="container">
+    <span class="section-label">02 // Quest Log</span>
+    <h2>Current Objectives</h2>
+
+    <p class="section-intro">
+      Every project is another step forward. These are the objectives
+      driving my journey through technology and digital creation.
+    </p>
+
+    <div class="quest-list">
+
+      
+<!-- QUEST STATISTICS -->
+<div class="quest-stats">
+  <div class="quest-stat">
+    <span class="quest-stat-label">QUESTS COMPLETED</span>
+    <span class="quest-stat-value" id="quests-completed">0 / 3</span>
+  </div>
+
+  <div class="quest-stat">
+    <span class="quest-stat-label">OBJECTIVES DONE</span>
+    <span class="quest-stat-value" id="objectives-completed">0 / 9</span>
+  </div>
+
+  <div class="quest-stat">
+    <span class="quest-stat-label">OVERALL PROGRESS</span>
+    <span class="quest-stat-value" id="quest-completion-percent">0%</span>
+    <div class="quest-stats-track">
+      <div class="quest-stats-fill" id="quest-stats-fill"></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ACHIEVEMENT SYSTEM -->
+<section class="achievement-panel">
+  <h3>🏆 ACHIEVEMENTS</h3>
+  <p class="achievement-intro">
+    Milestones earned along your development journey.
+  </p>
+
+  <div class="achievement-grid" id="achievement-grid"></div>
+</section>
+
+<article class="quest-card">
+  <button class="quest-toggle" aria-expanded="false">
+    <span class="quest-status quest-active">ACTIVE QUEST</span>
+    <span class="quest-number">QUEST 001</span>
+    <span class="quest-title">Build My Digital Presence</span>
+    <span class="quest-summary">
+      Develop a portfolio that showcases my projects and skills.
+    </span>
+    
+<span class="quest-expand">
+  <span class="quest-arrow" aria-hidden="true">⌄</span>
+  <span class="quest-expand-label">VIEW OBJECTIVES</span>
+</span>
+
+  </button>
+
+  <div class="quest-details" hidden>
+    <p class="quest-detail-label">MISSION OBJECTIVES</p>
+    
+<ul class="quest-objectives">
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Build and style the portfolio website</span>
+    </label>
+  </li>
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Create interactive web experiments</span>
+    </label>
+  </li>
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Showcase projects and technical growth</span>
+    </label>
+  </li>
+</ul>
+
+    <div class="quest-reward">REWARD: EXPERIENCE + KNOWLEDGE</div>
+  </div>
+
+  <div class="quest-footer">
+    <span>OBJECTIVE: WEB DEVELOPMENT</span>
+    <span class="quest-rank">CURRENT</span>
+  </div>
+</article>
+
+
+      
+<article class="quest-card">
+  <button class="quest-toggle" aria-expanded="false">
+    <span class="quest-status quest-progress">IN PROGRESS</span>
+    <span class="quest-number">QUEST 002</span>
+    <span class="quest-title">Expand My Skill Set</span>
+    <span class="quest-summary">
+      Learn through experimentation and strengthen my programming
+      and problem-solving abilities.
+    </span>
+    
+<span class="quest-expand">
+  <span class="quest-arrow" aria-hidden="true">⌄</span>
+  <span class="quest-expand-label">VIEW OBJECTIVES</span>
+</span>
+
+  </button>
+
+  <div class="quest-details" hidden>
+    <p class="quest-detail-label">MISSION OBJECTIVES</p>
+    
+<ul class="quest-objectives">
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Practice HTML, CSS, and JavaScript</span>
+    </label>
+  </li>
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Build interactive projects and experiments</span>
+    </label>
+  </li>
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Develop problem-solving skills through practice</span>
+    </label>
+  </li>
+</ul>
+
+    <div class="quest-reward">REWARD: SKILLS + EXPERIENCE</div>
+  </div>
+
+  <div class="quest-footer">
+    <span>OBJECTIVE: CONTINUOUS LEARNING</span>
+    <span class="quest-rank">ONGOING</span>
+  </div>
+</article>
+
+
+      
+<article class="quest-card quest-locked">
+  <button class="quest-toggle" aria-expanded="false">
+    <span class="quest-status quest-locked-label">LOCKED OBJECTIVE</span>
+    <span class="quest-number">QUEST 003</span>
+    <span class="quest-title">Develop Something Bigger</span>
+    <span class="quest-summary">
+      Apply my growing skills to larger software, game development,
+      and technology projects.
+    </span>
+    
+<span class="quest-expand">
+  <span class="quest-arrow" aria-hidden="true">⌄</span>
+  <span class="quest-expand-label">VIEW OBJECTIVES</span>
+</span>
+
+  </button>
+
+  <div class="quest-details" hidden>
+    <p class="quest-detail-label">FUTURE OBJECTIVES</p>
+    
+<ul class="quest-objectives">
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Plan a larger independent project</span>
+    </label>
+  </li>
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Explore software or game development</span>
+    </label>
+  </li>
+  <li>
+    <label>
+      <input type="checkbox" class="quest-checkbox">
+      <span>Build something substantial from the ground up</span>
+    </label>
+  </li>
+</ul>
+
+    <div class="quest-reward">REWARD: NEW POSSIBILITIES</div>
+  </div>
+
+  <div class="quest-footer">
+    <span>OBJECTIVE: FUTURE DEVELOPMENT</span>
+    <span class="quest-rank">UPCOMING</span>
+  </div>
+</article>
+
+
+    </div>
+  </div>
+</section>
+
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="container">
+        <span class="section-label">02 // Quest Log</span>
+        <h2>My Projects</h2>
+
+        <p class="section-intro">
+  A collection of projects and experiments exploring
+  technology, interactive design, and creative problem-solving.
+          </p>
+
+        <div class="project-grid">
+
+<div class="project-card">
+  <span class="project-tag">INTERACTIVE GAME</span>
+  <h3>Cyberpunk Reaction Tester</h3>
+  <p>
+    Test your reflexes in a neon-styled reaction game
+    featuring a personal best tracker and persistent
+    Top 5 leaderboard.
+  </p>
+  <a href="reaction-tester.html" class="project-link">
+    PLAY EXPERIMENT →
+  </a>
+</div>
+
+          <article class="project-card">
+            <div class="project-icon">🌌</div>
+            <span class="project-type">WEB DEVELOPMENT</span>
+            <h3>Personal Portfolio</h3>
+            <p>
+              A custom-designed website showcasing my work, interactive features, and evolving approach to digital design.
+            </p>
+            <span class="project-tag">HTML + CSS + JavaScript</span>
+            <div class="project-status">
+  <span class="status-dot"></span>
+  CURRENT PROJECT
+</div>
+          </article>
+
+          <article class="project-card">
+  <div class="project-icon">⚡</div>
+  <span class="project-type">ACTIVE PROJECT</span>
+  <h3>Interactive Experiments</h3>
+
+  <p>
+    A collection of interactive web projects exploring JavaScript, dynamic interfaces, and user interaction.
+  </p>
+
+  <div class="project-tags">
+    <span class="project-tag">JavaScript</span>
+    <span class="project-tag">UI Development</span>
+  </div>
+
+  <a href="experiments.html" class="project-link">
+    Explore Projects <span aria-hidden="true">→</span>
+  </a>
+</article>
+
+
+          <article class="project-card">
+            <div class="project-icon">🔮</div>
+            <span class="project-type">NEXT OBJECTIVE</span>
+            <h3>In Development</h3>
+            <p>
+              Future projects spanning software, game development, and other areas of technology.
+            </p>
+            <span class="project-tag">Coming Soon</span>
+            <div class="project-status">
+  <span class="status-dot status-pending"></span>
+  IN DEVELOPMENT
+</div>
+          </article>
+        </div>
+      </div>
+    </section>
+    
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="container">
+        <div class="contact-box">
+          <span class="section-label">03 // Open Invitation</span>
+          <h2>Let's Build Something.</h2>
+
+          <p>
+  Interested in my work or have an idea worth exploring?
+  I'd love to hear about it.
+          </p>
+          
+<a
+  class="button button-primary"
+  href="https://mail.google.com/mail/?view=cm&to=Skylar.Developer%40gmail.com"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <span>✉</span> Email Me
+</a>
+
+
+          <a class="button button-primary" href="#home">
+            Back to the Top ↑
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      Designed and developed by Skye 💜
+    </div>
+  </footer>
+
+<script src="js/main.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XP Level System | Skye</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .xp-demo {
+      max-width: 650px;
+      margin: 40px auto;
+      padding: 30px;
+      text-align: center;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .xp-demo h1 {
+      color: var(--cyan);
+      margin-bottom: 12px;
+    }
+
+    .demo-level {
+      font-size: 3rem;
+      font-weight: bold;
+      color: var(--purple);
+      margin: 20px 0;
+      text-shadow: 0 0 18px var(--purple);
+    }
+
+    .demo-track {
+      height: 18px;
+      margin: 20px 0;
+      overflow: hidden;
+      background: var(--background);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+    }
+
+    .demo-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+      transition: width 0.3s ease;
+    }
+
+    .demo-button {
+      padding: 12px 22px;
+      border: 1px solid var(--cyan);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--cyan);
+      font: inherit;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .demo-button:hover {
+      background: var(--cyan);
+      color: var(--background);
+      box-shadow: 0 0 18px var(--cyan);
+    }
+
+    .demo-message {
+      min-height: 24px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="experiments.html">Experiments</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="xp-demo">
+      <h1>XP LEVEL SYSTEM</h1>
+      <p>Click the button to earn experience and level up!</p>
+
+      <div class="demo-level" id="demoLevel">LEVEL 1</div>
+
+      <p id="demoXP">XP: 0 / 100</p>
+
+      <div
+        class="demo-track"
+        role="progressbar"
+        aria-label="Experience progress"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow="0"
+        id="demoProgress"
+      >
+        <div class="demo-bar" id="demoBar"></div>
+      </div>
+
+      <button class="demo-button" id="earnXP">
+        +25 XP ⚡
+      </button>
+
+      <p class="demo-message" id="demoMessage" aria-live="polite">
+        Your journey starts here.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    const levelDisplay = document.querySelector("#demoLevel");
+    const xpDisplay = document.querySelector("#demoXP");
+    const xpBar = document.querySelector("#demoBar");
+    const progress = document.querySelector("#demoProgress");
+    const message = document.querySelector("#demoMessage");
+    const earnButton = document.querySelector("#earnXP");
+
+    let level = 1;
+    let xp = 0;
+    const xpNeeded = 100;
+
+    earnButton.addEventListener("click", () => {
+      xp += 25;
+
+      if (xp >= xpNeeded) {
+        xp -= xpNeeded;
+        level++;
+        message.textContent = `LEVEL UP! Welcome to level ${level}! 🎉`;
+      } else {
+        message.textContent = "+25 XP earned. Keep going! ⚡";
+      }
+
+      levelDisplay.textContent = `LEVEL ${level}`;
+      xpDisplay.textContent = `XP: ${xp} / ${xpNeeded}`;
+      xpBar.style.width = `${xp}%`;
+      progress.setAttribute("aria-valuenow", xp);
+    });
+  </script>
+</body>
+</html>

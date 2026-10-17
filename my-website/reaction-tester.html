@@ -1,0 +1,487 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reaction Tester // Cyberpunk</title>
+
+  <style>
+    :root {
+      --cyan: #67e8f9;
+      --purple: #a78bfa;
+      --bg: #0d0a1b;
+      --panel: #171129;
+      --text: #f5f3ff;
+      --muted: #aaa3c5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 40px 20px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(ellipse at top, #251743, transparent 60%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, sans-serif;
+    }
+
+    .game {
+      width: min(100%, 650px);
+      padding: 28px;
+      border: 1px solid rgba(167, 139, 250, 0.35);
+      border-radius: 18px;
+      background: rgba(23, 17, 41, 0.92);
+      box-shadow: 0 0 35px rgba(167, 139, 250, 0.1);
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      font-size: 0.75rem;
+      font-weight: bold;
+      letter-spacing: 3px;
+    }
+
+    h1 {
+      margin-bottom: 8px;
+      font-size: clamp(1.8rem, 6vw, 2.6rem);
+    }
+
+    .description {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .reaction-zone {
+      min-height: 240px;
+      margin-top: 24px;
+      padding: 24px;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      border: 2px solid var(--purple);
+      border-radius: 14px;
+      background: #25183b;
+      cursor: pointer;
+      user-select: none;
+      transition:
+        background 0.15s,
+        border-color 0.15s,
+        box-shadow 0.15s;
+    }
+
+    .reaction-zone h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
+    }
+
+    .reaction-zone p {
+      margin: 0;
+      line-height: 1.5;
+    }
+
+    .reaction-zone.waiting {
+      background: #401c39;
+      border-color: #fb7185;
+    }
+
+    .reaction-zone.ready {
+      background: #063d39;
+      border-color: var(--cyan);
+      box-shadow: 0 0 35px rgba(103, 232, 249, 0.25);
+    }
+
+    .reaction-zone.early {
+      background: #493017;
+      border-color: #fbbf24;
+    }
+
+    .reaction-zone:focus-visible {
+      outline: 3px solid white;
+      outline-offset: 4px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .stat {
+      padding: 16px 8px;
+      text-align: center;
+      border: 1px solid rgba(103, 232, 249, 0.2);
+      border-radius: 10px;
+      background: rgba(13, 10, 27, 0.6);
+    }
+
+    .stat-label {
+      display: block;
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+    }
+
+    .stat-value {
+      display: block;
+      margin-top: 8px;
+      color: var(--cyan);
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .reset-button {
+      width: 100%;
+      margin-top: 18px;
+      padding: 13px;
+      border: 1px solid var(--purple);
+      border-radius: 9px;
+      background: transparent;
+      color: var(--text);
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .reset-button:hover {
+      background: rgba(167, 139, 250, 0.12);
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 22px;
+      color: var(--cyan);
+      text-decoration: none;
+    }
+
+    @media (max-width: 450px) {
+      .game {
+        padding: 20px;
+      }
+
+      .stats {
+        gap: 7px;
+      }
+    }
+
+    .leaderboard {
+      width: min(100%, 520px);
+      margin: 28px auto;
+      padding: 22px;
+      border: 1px solid #8b5cf6;
+      border-radius: 14px;
+      background: rgba(15, 10, 35, 0.9);
+      box-shadow: 0 0 20px rgba(139, 92, 246, 0.15);
+      text-align: left;
+    }
+
+    .leaderboard h2 {
+      color: #67e8f9;
+      font-size: 1.1rem;
+      margin-top: 0;
+      text-align: center;
+    }
+
+    #leaderboard-list {
+      padding-left: 28px;
+      color: #e9d5ff;
+    }
+
+    #leaderboard-list li {
+      padding: 10px 6px;
+      border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+    }
+
+    #leaderboard-list li:first-child {
+      color: #67e8f9;
+      font-weight: bold;
+    }
+
+    #reset-leaderboard {
+      display: block;
+      margin: 18px auto 0;
+      padding: 10px 16px;
+      border: 1px solid #8b5cf6;
+      border-radius: 8px;
+      background: transparent;
+      color: #e9d5ff;
+      cursor: pointer;
+    }
+
+    #reset-leaderboard:hover {
+      background: rgba(139, 92, 246, 0.2);
+    }
+
+  </style>
+</head>
+
+<body>
+  <main class="game">
+    <span class="eyebrow">SKYLAR // EXPERIMENT 001</span>
+    <h1>Reaction Tester</h1>
+
+    <p class="description">
+      Test your reflexes. Click the panel to begin, wait for it
+      to turn cyan, then click as quickly as you can!
+    </p>
+
+    <div
+      class="reaction-zone"
+      id="reaction-zone"
+      role="button"
+      tabindex="0"
+      aria-label="Reaction test game area"
+    >
+      <div>
+        <h2 id="game-message">READY?</h2>
+        <p id="game-hint">Click here to start your first round.</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-label">LAST TIME</span>
+        <span class="stat-value" id="last-time">—</span>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">BEST TIME</span>
+        <span class="stat-value" id="best-time">—</span>
+      </div>
+
+      <div class="stat">
+        <span class="stat-label">ATTEMPTS</span>
+        <span class="stat-value" id="attempts">0</span>
+      </div>
+    </div>
+
+    <button class="reset-button" id="reset-button">
+      RESET SESSION
+    </button>
+
+    <a class="back-link" href="index.html">
+      ← Back to portfolio
+    </a>
+     <!-- LEADERBOARD -->
+    <section class="leaderboard">
+      <h2>🏆 TOP 5 REACTION TIMES</h2>
+      <ol id="leaderboard-list">
+        <li>No scores yet — start playing!</li>
+      </ol>
+      <button id="reset-leaderboard">RESET LEADERBOARD</button>
+    </section>
+  </main>
+
+  <script>
+    const zone = document.getElementById("reaction-zone");
+    const message = document.getElementById("game-message");
+    const hint = document.getElementById("game-hint");
+    const lastDisplay = document.getElementById("last-time");
+    const bestDisplay = document.getElementById("best-time");
+    const attemptsDisplay = document.getElementById("attempts");
+    const resetButton = document.getElementById("reset-button");
+
+    let state = "idle";
+    let goTime = 0;
+    let waitTimer = null;
+    let attempts = 0;
+    let lastTime = null;
+
+    let bestTime = null;
+
+    try {
+      const savedBest = Number(
+        localStorage.getItem("reactionTesterBest")
+      );
+
+      if (Number.isFinite(savedBest) && savedBest > 0) {
+        bestTime = savedBest;
+      }
+    } catch {
+      // The game still works if browser storage is unavailable.
+    }
+
+    function showBest() {
+      bestDisplay.textContent =
+        bestTime === null ? "—" : `${bestTime} ms`;
+    }
+
+    function startRound() {
+      clearTimeout(waitTimer);
+
+      state = "waiting";
+      zone.className = "reaction-zone waiting";
+      message.textContent = "WAIT FOR CYAN...";
+      hint.textContent = "Stay ready. Don't click yet!";
+
+      const delay = 1500 + Math.random() * 2500;
+
+      waitTimer = setTimeout(() => {
+        state = "ready";
+        goTime = performance.now();
+
+        zone.className = "reaction-zone ready";
+        message.textContent = "CLICK NOW!";
+        hint.textContent = "Go! Go! Go!";
+      }, delay);
+    }
+
+    function handlePress() {
+      if (state === "waiting") {
+        clearTimeout(waitTimer);
+        state = "early";
+
+        zone.className = "reaction-zone early";
+        message.textContent = "TOO EARLY!";
+        hint.textContent = "Wait for cyan, then click to try again.";
+        return;
+      }
+
+           if (state === "ready") {
+        const reaction = Math.round(performance.now() - goTime);
+        saveLeaderboardScore(reaction);
+
+        state = "result";
+        lastTime = reaction;
+        attempts++;
+
+        lastDisplay.textContent = `${reaction} ms`;
+        attemptsDisplay.textContent = attempts;
+
+        zone.className = "reaction-zone";
+        message.textContent = `${reaction} ms`;
+        hint.textContent =
+          reaction < 200 ? "Lightning fast! ⚡" :
+          reaction < 300 ? "Great reaction!" :
+          reaction < 400 ? "Nice! Keep going." :
+          "Try another round to beat your time!";
+
+        if (bestTime === null || reaction < bestTime) {
+          bestTime = reaction;
+          showBest();
+
+          try {
+            localStorage.setItem(
+              "reactionTesterBest",
+              String(bestTime)
+            );
+          } catch {
+            // Best time remains available for this session.
+          }
+        }
+
+        return;
+      }
+
+      // Start the next round from the initial,
+      // early-click, or result state.
+      startRound();
+    }
+
+    zone.addEventListener("pointerdown", (event) => {
+      if (event.button !== 0) return;
+      handlePress();
+    });
+
+    zone.addEventListener("keydown", (event) => {
+      if (event.repeat) return;
+
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        handlePress();
+      }
+    });
+
+    resetButton.addEventListener("click", () => {
+      clearTimeout(waitTimer);
+
+      state = "idle";
+      attempts = 0;
+      lastTime = null;
+
+      zone.className = "reaction-zone";
+      message.textContent = "READY?";
+      hint.textContent = "Click here to start your first round.";
+
+      lastDisplay.textContent = "—";
+      attemptsDisplay.textContent = "0";
+
+      // Keep your all-time best even when resetting the session.
+      showBest();
+    });
+
+    showBest();
+
+
+
+    // TOP 5 LEADERBOARD
+    const leaderboardList = document.getElementById("leaderboard-list");
+    const resetLeaderboardButton = document.getElementById("reset-leaderboard");
+
+    let leaderboard = [];
+
+    try {
+      const savedScores = JSON.parse(
+        localStorage.getItem("reactionTesterLeaderboard") || "[]"
+      );
+
+      if (Array.isArray(savedScores)) {
+        leaderboard = savedScores
+          .filter((score) => Number.isFinite(score) && score > 0)
+          .sort((a, b) => a - b)
+          .slice(0, 5);
+      }
+    } catch {
+      leaderboard = [];
+    }
+
+    function renderLeaderboard() {
+      leaderboardList.replaceChildren();
+
+      if (leaderboard.length === 0) {
+        const item = document.createElement("li");
+        item.textContent = "No scores yet — start playing!";
+        leaderboardList.appendChild(item);
+        return;
+      }
+
+      leaderboard.forEach((score) => {
+        const item = document.createElement("li");
+        item.textContent = `${score.toFixed(1)} ms`;
+        leaderboardList.appendChild(item);
+      });
+    }
+
+    function saveLeaderboardScore(time) {
+      leaderboard.push(time);
+      leaderboard.sort((a, b) => a - b);
+      leaderboard = leaderboard.slice(0, 5);
+
+      localStorage.setItem(
+        "reactionTesterLeaderboard",
+        JSON.stringify(leaderboard)
+      );
+
+      renderLeaderboard();
+    }
+
+    resetLeaderboardButton.addEventListener("click", () => {
+      if (confirm("Clear all five leaderboard scores?")) {
+        leaderboard = [];
+        localStorage.removeItem("reactionTesterLeaderboard");
+        renderLeaderboard();
+      }
+    });
+
+    renderLeaderboard();
+
+  </script>
+</body>
+</html>
